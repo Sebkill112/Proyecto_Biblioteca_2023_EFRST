@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/resources/css/stylemenuprincipal.css}">
+<title>Menu Principal</title>
+</head>
+<body>
+  <nav class="navbar"> 
+    <header >
+    <img th:src="@{/resources/img/libreria.png}" alt="">
+    <a href="#"class="logo">Central Library</a>
+  </header>
+    <ul class="menu">
+      <li><a href="#" class="menu-item active">Inicio</a></li>
+      <li><a href="#" class="submenu-item">Mantenimientos</a>
+        <ul>
+          <li><a href="#" class="menu-itemsub">Servicio 1</a></li>
+          <li><a href="#" class="menu-itemsub">Servicio 2</a></li>
+          <li><a href="#" class="menu-itemsub">Servicio 3</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="submenu-item">Reportes</a>
+        <ul>
+          <li><a href="#" class="menu-itemsub">Servicio 1</a></li>
+          <li><a href="#" class="menu-itemsub">Servicio 2</a></li>
+          <li><a href="#" class="menu-itemsub">Servicio 3</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="menu-item">Contacto</a></li>
+      <li class="logout"><a href="#" class="menu-item">Cerar sesison</a></li>
+    </ul>
+    <button class="hamburger">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+  </nav>
+</body>
+</html>
