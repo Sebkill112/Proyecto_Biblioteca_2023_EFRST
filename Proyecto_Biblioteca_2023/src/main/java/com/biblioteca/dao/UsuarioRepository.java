@@ -11,6 +11,7 @@ import com.biblioteca.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
 	
+	
 	@Query("select u from Usuario u where u.correo=?1")
 	public Usuario iniciarSesion(String vLogin);
 	

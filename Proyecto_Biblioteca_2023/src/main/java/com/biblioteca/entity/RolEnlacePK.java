@@ -6,6 +6,7 @@ import java.util.Objects;
 import jakarta.persistence.Embeddable;
 
 
+
 @Embeddable
 public class RolEnlacePK implements Serializable {
 

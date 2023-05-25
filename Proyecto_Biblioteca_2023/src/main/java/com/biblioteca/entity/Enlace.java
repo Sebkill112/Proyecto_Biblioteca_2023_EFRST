@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Table(name = "menus")
 public class Enlace {
 
+	
 	@Id
 	@Column(name = "cod_menu")
 	private int codigo;
