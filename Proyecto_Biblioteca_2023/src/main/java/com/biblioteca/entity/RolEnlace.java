@@ -1,4 +1,4 @@
-package com.biblioteca.entity;
+ package com.biblioteca.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

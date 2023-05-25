@@ -32,7 +32,7 @@ public class SecurityConfig {
 		/*http
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/home").permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().authenticated()'
 			)
 			.formLogin((form) -> form
 				.loginPage("/validar/usuario")

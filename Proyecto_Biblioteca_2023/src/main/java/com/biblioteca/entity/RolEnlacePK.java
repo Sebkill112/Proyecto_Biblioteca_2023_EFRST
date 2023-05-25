@@ -1,5 +1,5 @@
-package com.biblioteca.entity;
-
+ package com.biblioteca.entity;
+ 
 import java.io.Serializable;
 import java.util.Objects;
 

@@ -20,7 +20,7 @@ import com.biblioteca.service.UsuarioService;
 @Controller
 @RequestMapping("/validar")
 public class ValidarController {
-	
+	 
 	@Autowired
 	private UsuarioService servicio;
 	
