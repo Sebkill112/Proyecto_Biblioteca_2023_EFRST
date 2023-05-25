@@ -13,19 +13,23 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="rol")
+@Table(name = "rol")
 public class Rol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="cod_rol")
+	@Column(name = "cod_rol")
 	private Integer codigo;
-	@Column(name="descripcion_rol")
+	@Column(name = "descripcion_rol")
 	private String descripcion;
-	
-	//relación UNO A MUCHOS
-	@OneToMany(mappedBy = "tipoRol")//NOMBRE DE LA ASOCIACION
+
+	// relación UNO A MUCHOS
+	@OneToMany(mappedBy = "tipoRol") // NOMBRE DE LA ASOCIACION
 	@JsonIgnore
 	private List<Usuario> listaUsuarios;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "rol")
+	private List<RolEnlace> listaRolEnlace;
 
 	public Integer getCodigo() {
 		return codigo;
@@ -50,6 +54,13 @@ public class Rol {
 	public void setListaUsuarios(List<Usuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
-	
-	
+
+	public List<RolEnlace> getListaRolEnlace() {
+		return listaRolEnlace;
+	}
+
+	public void setListaRolEnlace(List<RolEnlace> listaRolEnlace) {
+		this.listaRolEnlace = listaRolEnlace;
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biblioteca.dao.UsuarioRepository;
+import com.biblioteca.entity.Enlace;
 import com.biblioteca.entity.Usuario;
 
 @Service
@@ -31,5 +32,17 @@ public class UsuarioService {
 	
 	public List<Usuario> listarTodos() {
 		return repo.findAll();
+	}
+	
+	
+	public Usuario loginUsuario(String vLogin) {
+
+		return repo.iniciarSesion(vLogin);
+	}
+
+	public List<Enlace> enlaceDelUsuario(int rol) {
+		
+		
+		return repo.traerEnlaceDeUsuario(rol);
 	}
 }

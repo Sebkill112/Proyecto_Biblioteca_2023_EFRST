@@ -2,14 +2,19 @@ package com.biblioteca;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.biblioteca.security.Security;
 
 
 
@@ -36,10 +41,12 @@ public class SecurityConfig {
 			.logout((logout) -> logout.permitAll());*/
 		
 		
-		
-		http.csrf().disable().authorizeHttpRequests().requestMatchers("/validar/**").
-		permitAll().and().authorizeHttpRequests().requestMatchers("/medicamento/**","/medico/**").authenticated().and().
+		http.csrf().disable().authorizeHttpRequests().requestMatchers("/validar/**","/resources/js/**","/resources/css/**","resources/img/**",
+				"/resources/datepicker/**","/resources/**alertifyjs/**").
+		permitAll().and().authorizeHttpRequests().requestMatchers("/CrudUsuario/**","/libro/**").authenticated().and().
 		formLogin().loginPage("/validar/usuario").defaultSuccessUrl("/validar/intranet");
+		
+		
 
 		return http.build();
 	}
@@ -50,7 +57,24 @@ public class SecurityConfig {
 		/*UserDetails usuario1 = User.withUsername("sebastian").password("{noop}123").roles("ADMIN").build();
 		UserDetails usuario2 = User.withUsername("alicia").password("{noop}456").roles("USER").build();	*/
 
-		return  null;
+		return  new Security();
+	}
+	
+	@Bean
+	public AuthenticationProvider AuthenticationProvider(){
+		
+		DaoAuthenticationProvider dao= new DaoAuthenticationProvider();
+		dao.setUserDetailsService(userDetailsService());
+		dao.setPasswordEncoder(password());
+		
+		
+		return dao;
+	}
+	
+	
+	@Bean
+	public BCryptPasswordEncoder password() {
+		return new BCryptPasswordEncoder();
 	}
 	
 }
