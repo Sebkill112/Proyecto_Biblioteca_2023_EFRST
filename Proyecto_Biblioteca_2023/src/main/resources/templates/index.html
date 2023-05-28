@@ -13,22 +13,13 @@
   </header>
     <ul class="menu">
       <li><a href="#" class="menu-item active">Inicio</a></li>
-      <li><a href="#" class="submenu-item">Mantenimientos</a>
-        <ul>
-          <li><a href="#" class="menu-itemsub">Servicio 1</a></li>
-          <li><a href="#" class="menu-itemsub">Servicio 2</a></li>
-          <li><a href="#" class="menu-itemsub">Servicio 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#" class="submenu-item">Reportes</a>
-        <ul>
-          <li><a href="#" class="menu-itemsub">Servicio 1</a></li>
-          <li><a href="#" class="menu-itemsub">Servicio 2</a></li>
-          <li><a href="#" class="menu-itemsub">Servicio 3</a></li>
-        </ul>
-      </li>
-      <li><a href="#" class="menu-item">Contacto</a></li>
-      <li class="logout"><a href="#" class="menu-item">Cerar sesison</a></li>
+      <li class="menu-item active" th:each="row:${session.enlaces}">
+						  <a class="nav-link" th:text="${row.descripcion}"  th:href="${row.ruta}"></a>
+						</li>
+        <div class="flex" style="width:200px!important;padding-top: 10px;font-weight:bold ">
+			      		<span class="text-white">Usuario: </span><span class="text-white" th:text="${session.datosUsuario}"></span>
+			      	  </div> 						 
+      <li class="logout"><a th:href="@{/logout}" class="menu-item">Cerar sesison</a></li>
     </ul>
     <button class="hamburger">
       <span class="line"></span>
