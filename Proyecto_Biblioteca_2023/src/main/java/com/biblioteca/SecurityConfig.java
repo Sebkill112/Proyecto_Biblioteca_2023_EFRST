@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 package com.biblioteca;
 
 import org.springframework.context.annotation.Bean;
@@ -43,7 +50,7 @@ public class SecurityConfig {
 		
 		
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/validar/**","/resources/js/**","/resources/css/**","resources/img/**",
-				"/resources/datepicker/**","/resources/**alertifyjs/**").
+				"/resources/datepicker/**","/resources/**alertifyjs/**","/RegUsuario/**").
 		permitAll().and().authorizeHttpRequests().requestMatchers("/CrudUsuario/**","/libro/**").authenticated().and().
 		formLogin().loginPage("/validar/usuario").defaultSuccessUrl("/validar/intranet");
 		

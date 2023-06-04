@@ -1,4 +1,4 @@
- package com.biblioteca.controller;
+package com.biblioteca.controller;
 
 import java.time.LocalDate;
 
@@ -7,32 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entity.Rol;
 import com.biblioteca.entity.Usuario;
-import com.biblioteca.service.RolService;
 import com.biblioteca.service.UsuarioService;
 
 @Controller
-
-
-@RequestMapping("/CrudUsuario")
-public class UsuarioController {
+@RequestMapping("/RegUsuario") // NOMBRE DE LA PAGINA
+public class RegUsuarioController {
+	
+	// TRAEMOS EL SERVICE USUARIO
 	@Autowired
 	private UsuarioService serUsu;
 	
-	@Autowired
-	private RolService serRol;
-	
+	// CARGAR LA PAGINA
 	@RequestMapping("/lista")
 	private String index(Model model) {
-		model.addAttribute("Usuarios", serUsu.listarTodos());
-		model.addAttribute("Roles", serRol.listarRoles());
 		
-		return "CrudUsuario";
+		return "RegUsuario";
 	}
+	
+	// CREAMOS EL METODO REGISTRAR USUARIO
 	
 	@RequestMapping("/grabar")
 	public String grabar( 
@@ -44,14 +40,13 @@ public class UsuarioController {
 			@RequestParam("fecha") String fec,
 			@RequestParam("correo") String corrreo,
 			@RequestParam("clave") String clave,
-			@RequestParam("tipoRol") int codRol,
+			//@RequestParam("tipoRol") int codRol,
 			RedirectAttributes redirect
 			) {
 		try {
 			//
 			Usuario u = new Usuario();
 			//
-			u.setCodigo(codUsu);
 			u.setNombre(nom);
 			u.setApellido(ape);
 			u.setDni(dni);
@@ -61,73 +56,21 @@ public class UsuarioController {
 			u.setClave(clave);
 			//
 			Rol r = new Rol();
-			r.setCodigo(codRol);
+			r.setCodigo(2);
 			//
 			u.setTipoRol(r);
-			
-			if(codUsu==0) {
-				serUsu.registrar(u);
-				//
-				redirect.addFlashAttribute("MENSAJE","Usuario registrado");
-			}
-			else {
-				u.setCodigo(codUsu);
-				serUsu.actualizar(u);
-				//
-				redirect.addFlashAttribute("MENSAJE","Usuario actualizado");
-			}
+			//
+			serUsu.registrar(u);
+			//
+			redirect.addFlashAttribute("MENSAJE","Usuario registrado");
 			
 		} catch (Exception e) {
 			redirect.addFlashAttribute("MENSAJE","Error en el registrar");
 			e.printStackTrace();
 		}
 		
-		return "redirect:/CrudUsuario/lista";
+		return "redirect:/RegUsuario/lista";
 		
 	}
-	
-	@RequestMapping("/buscar")
-	@ResponseBody
-	private Usuario buscarPorCodigo(
-			@RequestParam("codigo") Integer cod
-			) {
-		return serUsu.buscarPorID(cod);
-	}
-	
-	@RequestMapping("/eliminar")
-	private String eliminarPorCodigo(
-			@RequestParam("codigo") Integer cod,
-			RedirectAttributes redirect
-			) {
-		serUsu.eliminarPorID(cod);
-		redirect.addFlashAttribute("MENSAJE","Usuario eliminado");
-		
-		return "redirect:/CrudUsuario/lista";
 
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
