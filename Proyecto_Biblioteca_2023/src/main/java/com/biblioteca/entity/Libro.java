@@ -46,6 +46,9 @@ public class Libro {
 	
 	@OneToMany(mappedBy = "libro")
 	private List<PrestamoHasLibro> listaDetalle;
+	
+	@OneToMany(mappedBy = "libro")
+	private List<DevolucionHasLibro> listaDevolucion;
 
 	public Integer getCodigo() {
 		return codigo;

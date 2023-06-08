@@ -14,38 +14,41 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="cod_usuario")
+	@Column(name = "cod_usuario")
 	private Integer codigo;
-	@Column(name="nombre")
+	@Column(name = "nombre")
 	private String nombre;
-	@Column(name="apellido")
+	@Column(name = "apellido")
 	private String apellido;
-	@Column(name="dni")
+	@Column(name = "dni")
 	private String dni;
-	@Column(name="direccion")
+	@Column(name = "direccion")
 	private String direccion;
-	@Column(name="fecha_nac")
+	@Column(name = "fecha_nac")
 	private LocalDate fecha;
-	@Column(name="correo")
+	@Column(name = "correo")
 	private String correo;
-	@Column(name="clave")
+	@Column(name = "clave")
 	private String clave;
-	
-	//BI-DIRECCIONAL
-	//MUCHOS A UNO
+
+	// BI-DIRECCIONAL
+	// MUCHOS A UNO
 	@ManyToOne
 	@JoinColumn(name = "cod_rol")
 	private Rol tipoRol;// "tipoRol"---> ASOCIACION ENTRE ENTIDADES
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Prestamo> listaPrestamos;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+	private List<Devolucion> listaDevolucion;
 
 	public List<Prestamo> getListaPrestamos() {
 		return listaPrestamos;
@@ -126,6 +129,13 @@ public class Usuario {
 	public void setTipoRol(Rol tipoRol) {
 		this.tipoRol = tipoRol;
 	}
-	
-	
+
+	public List<Devolucion> getListaDevolucion() {
+		return listaDevolucion;
+	}
+
+	public void setListaDevolucion(List<Devolucion> listaDevolucion) {
+		this.listaDevolucion = listaDevolucion;
+	}
+
 }
