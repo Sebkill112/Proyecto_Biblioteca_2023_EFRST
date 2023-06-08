@@ -6,6 +6,7 @@
 <title>Menu Principal</title>
 </head>
 <body>
+	<div th:fragment="menu">
   <nav class="navbar"> 
     <header >
     <img th:src="@{/resources/img/libreria.png}" alt="">
@@ -13,13 +14,13 @@
   </header>
     <ul class="menu">
       <li><a href="#" class="menu-item active">Inicio</a></li>
-      <li class="menu-item active" th:each="row:${session.enlaces}">
-						  <a class="nav-link" th:text="${row.descripcion}"  th:href="${row.ruta}"></a>
+      <li th:each="row:${session.enlaces}">
+						  <a class="menu-item active" th:text="${row.descripcion}"  th:href="${row.ruta}"></a>
 						</li>
         <div class="flex" style="width:200px!important;padding-top: 10px;font-weight:bold ">
 			      		<span class="text-white">Usuario: </span><span class="text-white" th:text="${session.datosUsuario}"></span>
 			      	  </div> 						 
-      <li class="logout"><a th:href="@{/logout}" class="menu-item">Cerar sesison</a></li>
+      <li class="logout"><a th:href="@{/logout}" class="menu-item">Cerrar sesion</a></li>
     </ul>
     <button class="hamburger">
       <span class="line"></span>
@@ -27,5 +28,6 @@
       <span class="line"></span>
     </button>
   </nav>
+	</div>
 </body>
 </html>

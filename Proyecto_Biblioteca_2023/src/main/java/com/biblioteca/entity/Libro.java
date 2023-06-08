@@ -1,5 +1,9 @@
 package com.biblioteca.entity;
 
+import java.util.List;
+
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,6 +43,9 @@ public class Libro {
 	
 	@Column(name="stock")
 	private int stock;
+	
+	@OneToMany(mappedBy = "libro")
+	private List<PrestamoHasLibro> listaDetalle;
 
 	public Integer getCodigo() {
 		return codigo;

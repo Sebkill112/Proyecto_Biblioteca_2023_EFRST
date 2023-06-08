@@ -34,4 +34,8 @@ public class LibroService {
 		return repo.findAll();
 	}
 	
+	public List<Libro> consultarLibrosFiltro(int gen , int edit){
+		return repo.consultaLibro(gen, edit);
+	}
+	
 }
