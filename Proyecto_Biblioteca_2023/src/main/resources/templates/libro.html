@@ -9,6 +9,7 @@
 <link rel="stylesheet" th:href="@{/resources/datepicker/bootstrap-datepicker.css}">
 <link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
 <link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
+ <link rel="stylesheet" th:href="@{/resources/css/stylemenuprincipal.css}"> 
 
 <style>
 	.modal-header, h4, .close {
@@ -89,6 +90,7 @@
 </style> 
 </head>
 <body>
+	<div th:insert="index :: menu"></div>
 	<div class="container">
 		
 			<h3 class="text-center mt-4">LISTA DE LIBROS</h3>

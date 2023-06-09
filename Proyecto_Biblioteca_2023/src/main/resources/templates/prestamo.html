@@ -22,83 +22,6 @@
 			font-size: 20px;
 		}
 
-		.help-block {
-			color: red;
-			/*display: none;*/
-		}
-
-		.form-group.has-error .form-control-label {
-			color: red;
-		}
-
-		.form-group.has-error .form-control {
-			border: 1px solid red;
-			box-shadow: 0 0 0 0.2rem rgba(250, 16, 0, 0.18);
-		}
-
-		.alertify .ajs-dialog {
-			top: 50%;
-			transform: translateY(-50%);
-			margin: auto;
-		}
-
-		.ajs-header {
-			background-color: #286090 !important;
-			color: white !important;
-			/*text-align: center;*/
-			font-size: 18px;
-			font-weight: bold;
-		}
-
-		.ajs-ok {
-			color: #fff;
-			background-color: #007bff;
-			border-color: #007bff;
-		}
-
-		.ajs-cancel {
-			color: #fff;
-			background-color: #dc3545;
-			border-color: #dc3545;
-		}
-
-		.btn-primary {
-			background-color: #286090 !important;
-		}
-
-		.dataTables_length,
-		.dataTables_info {
-			display: none;
-		}
-
-		.modal-lg,
-		.modal-xl {
-			max-width: 900px;
-			max-height: 800px;
-		}
-
-		.form-control-feedback2 {
-			margin: 1px;
-			position: absolute;
-			padding: 10px;
-			pointer-events: none;
-			background-color: #e9ecef;
-			border-style: none;
-		}
-
-		.form-control-feedback3 {
-			margin: 1px;
-			position: absolute;
-			margin-left: 225px;
-			padding: 10px;
-			pointer-events: none;
-			background-color: #e9ecef;
-			border-style: none;
-		}
-
-		.form-control {
-			padding-left: 40px !important;
-		}
 	</style>
 </head>
 
@@ -228,10 +151,20 @@
 	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
 
+
+<script  th:inline="javascript" th:if="${MENSAJE!=null}">
+		//recuperar atributo "MENSAJE"
+		let msg=/*[[${MENSAJE}]]*/
+		
+		toastr.success(msg, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+	</script>
 	<script>
 
     $(document).on("click",".btn-adicionar",function(){
-			let boton="<button type='button' class='btn btn-danger'><i class='fas fa-trash-alt'></i></button>";
+			let boton="<button type='button' class='btn btn-danger btn-eliminar'><i class='fas fa-trash-alt'></i></button>";
 			let cod, nom, edi , autor,gen,anio;
 			cod=$(this).parents("tr").find("td")[0].innerHTML;
 			nom=$(this).parents("tr").find("td")[1].innerHTML;
@@ -241,8 +174,28 @@
 			anio=$(this).parents("tr").find("td")[5].innerHTML;
 			$("#tableDetalle tbody").empty();
 			$.get("/prestamo/adicionar?cod="+cod+"&nom="+nom+"&edi="+edi+"&autor="+autor+"&gen="+gen+"&anio="+anio,function(response){
-				console.log(response);
-				
+				$.each(response,function(index,item){
+				$("#tableDetalle tbody").append("<tr><td>"+ item.codigo + "</td>"+ 
+													"<td>"+ item.nombre+"</td>"+ 
+													"<td>"+ item.editorial+"</td>"+
+													 "<td>"+ item.autor+"</td>"+
+													 "<td>"+ item.genero+"</td>"+
+													 "<td>"+ item.anio+"</td>"+
+													 "<td>"+boton+"</td></tr>"
+					);
+			});
+			});
+			
+			
+		});
+		
+		
+		  $(document).on("click",".btn-eliminar",function(){
+			let boton="<button type='button' class='btn btn-danger btn-eliminar'><i class='fas fa-trash-alt'></i></button>";
+			let cod;
+			cod=$(this).parents("tr").find("td")[0].innerHTML;
+			$("#tableDetalle tbody").empty();
+			$.get("/prestamo/eliminar?cod="+cod,function(response){	
 				$.each(response,function(index,item){
 				$("#tableDetalle tbody").append("<tr><td>"+ item.codigo + "</td>"+ 
 													"<td>"+ item.nombre+"</td>"+ 

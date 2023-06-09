@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biblioteca.entity.DetallePrestamo;
 import com.biblioteca.entity.Editorial;
@@ -56,7 +57,7 @@ public class PrestamoController {
 	@ResponseBody
 	public List<DetallePrestamo> adicionar(@RequestParam("cod") int cod, @RequestParam("nom") String nom,
 			@RequestParam("edi") String edi, @RequestParam("autor") String autor,@RequestParam("gen") String gen,
-			@RequestParam("anio") String anio,HttpSession session) {
+			@RequestParam("anio") String anio,HttpSession session,RedirectAttributes redirect) {
 		
 		List<DetallePrestamo> lista = null;
 		
@@ -75,6 +76,15 @@ public class PrestamoController {
 		    d.setAutor(autor);
 		    d.setGenero(gen);
 		    d.setAnio(anio);
+		    
+		    for(DetallePrestamo det :lista) {
+				if(det.getCodigo() == cod) {
+					
+					redirect.addFlashAttribute("MENSAJE","Libro ya agregado");
+					return lista;
+					
+				}
+			}
 
 		    lista.add(d);
 			// crear atributo de tipo session data
@@ -82,6 +92,22 @@ public class PrestamoController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		return lista;
+	}
+	
+	@RequestMapping("/eliminar")
+	@ResponseBody
+	public List<DetallePrestamo> eliminar(@RequestParam("cod") int cod,HttpSession session) {
+
+		List<DetallePrestamo> lista = (List<DetallePrestamo>) session.getAttribute("data");
+
+		for (DetallePrestamo d : lista) {
+			if (d.getCodigo() == cod) {
+				lista.remove(d);
+				break;
+			}
 		}
 
 		return lista;

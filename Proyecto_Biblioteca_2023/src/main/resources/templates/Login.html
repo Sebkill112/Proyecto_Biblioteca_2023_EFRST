@@ -42,9 +42,9 @@
 		   
 		   </form>
 		   <div class="col-12">
-		     
-		     <p class="alerta"><strong></strong> </p>
-		     
+		     <a class="btn-warning" th:href="@{/RegUsuario/registro}"</a>¿hola no tienes cuenta registrate?</a>
+		     <p class="alerta" th:if="${param.error}"><strong>Clave incorrecta</strong> </p>
+		     <p class="success" th:if="${param.logout}"><strong>Sesión terminada</strong> </p>
 		   
 		   </div>
 		

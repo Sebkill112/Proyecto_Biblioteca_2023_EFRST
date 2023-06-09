@@ -71,3 +71,11 @@ button{
 .alerta{
 	color: red;
 }
+
+.success{
+	color: green;
+}
+
+.default{
+	color: white;
+}
