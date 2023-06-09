@@ -51,7 +51,7 @@ public class SecurityConfig {
 		
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/validar/**","/resources/js/**","/resources/css/**","resources/img/**",
 				"/resources/datepicker/**","/resources/**alertifyjs/**","/RegUsuario/**").
-		permitAll().and().authorizeHttpRequests().requestMatchers("/CrudUsuario/**","/libro/**","/prestamo/**").authenticated().and().
+		permitAll().and().authorizeHttpRequests().requestMatchers("/CrudUsuario/**","/libro/**","/prestamo/**","/devolucion/**").authenticated().and().
 		formLogin().loginPage("/validar/usuario").defaultSuccessUrl("/validar/intranet");
 		
 		
