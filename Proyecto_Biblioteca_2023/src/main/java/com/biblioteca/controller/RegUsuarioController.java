@@ -3,6 +3,7 @@ package com.biblioteca.controller;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,10 @@ public class RegUsuarioController {
 			) {
 		try {
 			//
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String pass = encoder.encode(clave);
+			//
+			
 			Usuario u = new Usuario();
 			//
 			u.setNombre(nom);
@@ -53,7 +58,7 @@ public class RegUsuarioController {
 			u.setDireccion(direc);
 			u.setFecha(LocalDate.parse(fec));
 			u.setCorreo(corrreo);
-			u.setClave(clave);
+			u.setClave(pass);
 			//
 			Rol r = new Rol();
 			r.setCodigo(2);

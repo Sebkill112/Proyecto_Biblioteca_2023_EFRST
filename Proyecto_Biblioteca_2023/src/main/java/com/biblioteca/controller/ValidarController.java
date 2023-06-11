@@ -31,7 +31,7 @@ public class ValidarController {
 	}
 	
 	
-	@RequestMapping("intranet")
+	@RequestMapping("/intranet")
 	public String Intranet(Authentication auth,Model model) {
 		
 		String nomUsuario=auth.getName();
