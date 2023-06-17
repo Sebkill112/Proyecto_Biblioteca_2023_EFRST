@@ -3,6 +3,7 @@
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,24 +59,20 @@ public class UsuarioController {
 			u.setDireccion(direc);
 			u.setFecha(LocalDate.parse(fec));
 			u.setCorreo(corrreo);
-			u.setClave(clave);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String pass = encoder.encode(clave);
+			u.setClave(pass);
 			//
 			Rol r = new Rol();
 			r.setCodigo(codRol);
 			//
 			u.setTipoRol(r);
 			
-			if(codUsu==0) {
-				serUsu.registrar(u);
+			u.setCodigo(codUsu);
+			serUsu.actualizar(u);
 				//
-				redirect.addFlashAttribute("MENSAJE","Usuario registrado");
-			}
-			else {
-				u.setCodigo(codUsu);
-				serUsu.actualizar(u);
-				//
-				redirect.addFlashAttribute("MENSAJE","Usuario actualizado");
-			}
+			redirect.addFlashAttribute("MENSAJE","Usuario actualizado");
+			
 			
 		} catch (Exception e) {
 			redirect.addFlashAttribute("MENSAJE","Error en el registrar");
